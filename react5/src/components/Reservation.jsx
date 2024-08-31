@@ -20,9 +20,9 @@ function Reservation() {
                     <input type={'checkbox'} checked={haveBreakfast} id={'chk'} className={'form-check-input ms-2'} onChange={e => setHaveBreakfast(e.target.checked)}/>
                 </label>
 
-                <lebel htmlFor={'count'} className={'form-label ms-3'}>방문객 수 :
+                <label htmlFor={'count'} className={'form-label ms-3'}>방문객 수 :
                     <input type={'number'} value={numberOfGuest} id={'count'} className={'form-control'} onChange={e => setNumberOfGuest(e.target.value)} />
-                </lebel>
+                </label>
 
                 <button type={'submit'} className={'btn btn-primary ms-2'}>확인</button>
             </form>
