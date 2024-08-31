@@ -9,15 +9,19 @@
 function MailBox(props) {
     // 부모 컴포넌트에서 전달받은 데이터를 변수에 저장
     const unreadMessages = props.unreadMessages;
-    // const count = 0;
+    const count = 0;
 
     return(
         <div>
             <h1>안녕하세요</h1>
             {
                 // JSX 문법에서는 if문을 사용할 수 없음
-                // count && <h2>현재 {unreadMessages}개의 읽지 않은 메일이 있습니다.</h2>
+                // && 사용 시 연산식이 Falsy이면 출력하지 않음
                 unreadMessages > 0 && <h2>현재 {unreadMessages}개의 읽지 않은 메일이 있습니다.</h2>
+            }
+            {
+                // && 사용 시 연산식이 Falsy이면 출력되지 않지만 결과값은 Falsy라도 출력함
+                count && <h2>현재 카운트 : ${count}</h2>
             }
         </div>
     );
