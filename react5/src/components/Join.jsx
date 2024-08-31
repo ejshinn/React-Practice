@@ -46,39 +46,39 @@ function Join() {
             <div className={'col-sm-6'}>
                 <form onSubmit={handleSubmit}>
                     <div className={'mt-3'}>
-                        <label htmlFor={'user-id'} className={'form-label'}>id :
-                            <input type={'text'} className={'form-control'} id={'user-id'} value={id} onChange={handleIdChange}/>
-                        </label>
+                        <label htmlFor={'user-id'} className={'form-label'}>id : </label>
+                        <input type={'text'} className={'form-control'} id={'user-id'} value={id} onChange={handleIdChange}/>
                     </div>
 
                     <div className={'mt-3'}>
-                        <label htmlFor={'user-pw'} className={'form-label'}>비밀번호 :
-                            <input type={'password'} className={'form-control'} id={'user-pw'} value={pw} onChange={handlePwChange}/>
-                        </label>
+                        <label htmlFor={'user-pw'} className={'form-label'}>비밀번호 : </label>
+                        <input type={'password'} className={'form-control'} id={'user-pw'} value={pw} onChange={handlePwChange}/>
                     </div>
 
                     <div className={'mt-3'}>
-                        <label htmlFor={'name'} className={'form-label'}>이름 :
-                            <input type={'text'} className={'form-control'} id={'name'} value={name} onChange={handleNameChange}/>
-                        </label>
+                        <label htmlFor={'name'} className={'form-label'}>이름 : </label>
+                        <input type={'text'} className={'form-control'} id={'name'} value={name} onChange={handleNameChange}/>
                     </div>
 
                     <div className={'mt-3'}>
-                        <label htmlFor={'email'} className={'form-label'}>이메일 :
-                            <input type={'email'} className={'form-control'} id={'email'} value={email} onChange={handleEmailChange}/>
-                        </label>
+                        <label htmlFor={'email'} className={'form-label'}>이메일 : </label>
+                        <input type={'email'} className={'form-control'} id={'email'} value={email} onChange={handleEmailChange}/>
                     </div>
 
                     <div className={'mt-3'}>
-                        <label htmlFor={'user-phone'} className={'form-label'}>휴대전화 :
-                            <input type={'text'} className={'form-control'} id={'user-phone'} value={phone} onChange={handlePhoneChange}/>
-                        </label>
+                        <label htmlFor={'user-phone'} className={'form-label'}>휴대전화 :</label>
+                        <input type={'text'} className={'form-control'} id={'user-phone'} value={phone} onChange={handlePhoneChange}/>
                     </div>
 
-                    <label htmlFor={'rdo'} className={'form-label'}>성별 :
-                        <input type={'radio'} id={'rdo'} value={'남성'} checked={gender === '남성'} onChange={handleGenderChange}/>남성
-                        <input type={'radio'} id={'rdo'} value={'여성'} checked={gender === '여성'} onChange={handleGenderChange}/>여성
-                    </label>
+                    <div className={'mt-3'}>
+                        <label className={'form-label'}>성별 : </label>
+                        {['남성', '여성'].map((value) => (
+                            <div className={'form-check'} key={value}>
+                                <label className={'form-check-label'} htmlFor={value}>{value}</label>
+                                <input className={'form-check-input'} type={'radio'} id={value} name={'gender'} value={value} checked={gender === value} onChange={handleGenderChange}/>
+                            </div>
+                        ))}
+                    </div>
 
                     <div className={'mt-3 d-grid gap-2'}>
                         <button type={'submit'} className={'btn btn-primary'}>확인</button>
