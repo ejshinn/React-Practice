@@ -1,0 +1,98 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.4'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'bitc.fullstack405'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// 리액트 프로젝트를 스프링부트 프로젝트에 포함하기
+
+// 변수 선언 및 프로젝트 폴더 설정
+// $projectDir : 스프링부트 프로젝트 폴더를 의미
+def frontendDir = "$projectDir/src/main/frontend"
+
+// 리액트 프로젝트가 빌드되어 복사될 위치 설정
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["$projectDir/src/main/resources"]
+        }
+    }
+}
+
+processResources {
+    dependsOn "copyReactBuildFiles"
+}
+
+// task : gradle 파일에서 실행하는 함수
+
+// 리액트 프로젝트 인스톨 함수
+task installReact(type: Exec) {
+    // 작업 폴더 설정
+    workingDir "$frontendDir"
+    inputs.dir "$frontendDir"
+    group = BasePlugin.BUILD_GROUP
+
+    // 리액트 모듈 다운로드, os 종류에 따라 실행하는 명령어가 조금 다름
+    if(System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
+        commandLine "npm.cmd", "audit", "fix"
+        commandLine "npm.cmd", "install"
+    }
+    else {
+        commandLine "npm", "audit", "fix"
+        commandLine "npm", "install"
+    }
+}
+
+// 리액트 프로젝트 빌드 함수
+task buildReact(type: Exec) {
+    // 지정한 명령 실행 후 동작
+    dependsOn "installReact"
+    workingDir "$frontendDir"
+    inputs.dir "$frontendDir"
+    group = BasePlugin.BUILD_GROUP
+
+    // 리액트 프로젝트 빌드 명령
+    if(System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("windows")) {
+        commandLine "npm.cmd", "run-script", "build"
+    }
+    else {
+        commandLine "npm", "run-script", "build"
+    }
+}
+
+// 빌드된 리액트 프로젝트를 스프링 프로젝트로 복사
+task copyReactBuildFiles(type: Copy) {
+    dependsOn "buildReact"
+    // 빌드된 리액트 프로젝트 위치 설정
+    from "$frontendDir/dist"
+    // 빌드된 리액트 프로젝트 파일을 복사할 위치 설정
+    into "$projectDir/src/main/resources/static"
+}
+
+// bootJar 명령 실행 시 아래 명령 동작
+tasks.bootJar {
+    dependsOn "copyReactBuildFiles"
+}
