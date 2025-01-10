@@ -77,7 +77,7 @@
 * 리액트 프로젝트를 스프링부트 프로젝트에 포함하기
 
 
-### 11. jwtReact
+### 11. jwtReact (with spring-practice repository의 jwtServer)
 * JWT를 사용한 인증 및 권한 관리 처리
 * 회원가입, 로그인, 로그아웃, 게시판
 <br>
