@@ -1,4 +1,4 @@
-# React_Practice
+# React Practice
 
 ### 1. es6
 * 템플릿 문자열 사용하기<br>
